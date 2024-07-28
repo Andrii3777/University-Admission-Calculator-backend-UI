@@ -340,7 +340,7 @@ POST `api/v1/enroll`
   }
   ```
 
-  ![enrollment](https://github.com/user-attachments/assets/ebbf6cc6-3301-4756-abb4-c685d14202cb)
+  ![calculate](https://github.com/user-attachments/assets/148e7c44-aff4-4a58-bcdd-c6da38a0a7b7)
 
   ![enroll](https://github.com/user-attachments/assets/c33dcd34-7ea3-4077-9b36-988737f206eb)
 
@@ -366,7 +366,7 @@ GET `api/v1/getStudentScores`
   }
   ```
   
-  ![calculatorPage](https://github.com/user-attachments/assets/203df161-b6a9-4bf8-ac5c-0713e17d309f)
+  ![studentsScores](https://github.com/user-attachments/assets/53f365f3-f434-4607-866b-ad3489330c09)
   
   ![getSrudentsScores](https://github.com/user-attachments/assets/8cec1249-7258-41c2-877c-0e394997e025)
 
