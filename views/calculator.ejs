@@ -1,0 +1,28 @@
+<%- include('partials/header'); -%>
+<link rel="stylesheet" href="/css/calculator.css">
+<form id="enrollmentForm">
+  <h2>Enrollment</h2>
+  <div class="form-group">
+    <label for="mathematics">Mathematics:</label>
+    <input type="number" id="mathematics" name="Mathematics" min="0" max="100" required>
+  </div>
+  <div class="form-group">
+    <label for="physics">Physics:</label>
+    <input type="number" id="physics" name="Physics" min="0" max="100" required>
+  </div>
+  <div class="form-group">
+    <label for="chemistry">Chemistry:</label>
+    <input type="number" id="chemistry" name="Chemistry" min="0" max="100" required>
+  </div>
+  <div class="form-group">
+    <label for="biology">Biology:</label>
+    <input type="number" id="biology" name="Biology" min="0" max="100" required>
+  </div>
+  <div class="score error"></div>
+  <div class="form-group">
+    <button type="button" class="btn" onclick="enroll()">Enrollment</button>
+  </div>
+</form>
+<div id="results"></div>
+<script src="/script/calculator.js"></script>
+<%- include('partials/footer'); -%>

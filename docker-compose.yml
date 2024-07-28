@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  mysql_university_admission:
+    image: mysql
+    container_name: mysql_university_admission
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
+    networks:
+      - university_admission-network
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_USER: "${MYSQL_USERNAME}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+    volumes:
+      - university_admission-data:/var/lib/mysql
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 20s
+
+  university_admission:
+    image: university_admission:latest
+    container_name: university_admission
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    networks:
+      - university_admission-network
+    environment:
+      MYSQL_HOST: "mysql_university_admission"
+      MYSQL_PORT: "${MYSQL_PORT}"
+      MYSQL_USER: "${MYSQL_USERNAME}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+    depends_on:
+      mysql_university_admission:
+        condition: service_healthy
+    restart: always
+
+networks:
+  university_admission-network:
+    driver: bridge
+
+volumes:
+  university_admission-data:
+    driver: local
