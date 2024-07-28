@@ -365,7 +365,9 @@ GET `api/v1/getStudentScores`
     }
   }
   ```
-
+  
+  ![calculatorPage](https://github.com/user-attachments/assets/203df161-b6a9-4bf8-ac5c-0713e17d309f)
+  
   ![getSrudentsScores](https://github.com/user-attachments/assets/8cec1249-7258-41c2-877c-0e394997e025)
 
 ## Authentication
