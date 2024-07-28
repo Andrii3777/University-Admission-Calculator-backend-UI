@@ -2,13 +2,15 @@ version: "3.9"
 
 services:
   mysql_university_admission:
-    image: mysql
+    image: mysql:8.0
     container_name: mysql_university_admission
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - "${MYSQL_PORT}:${MYSQL_PORT}"
     networks:
       - university_admission-network
+    mem_limit: 512m
+    mem_reservation: 512m
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       MYSQL_USER: "${MYSQL_USERNAME}"
