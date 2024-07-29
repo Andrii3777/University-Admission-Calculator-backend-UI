@@ -51,9 +51,6 @@ class AuthController {
             res.clearCookie('accessToken');
 
             return res.redirect(env.API_BASE_PATH);
-            /* return res.status(204).json({
-                message: 'Student logged out successfully'
-            }); */
         } catch (error) {
             res.status(error?.status || 500).send({ error: error?.message || error });
         }
@@ -73,23 +70,16 @@ class AuthController {
             // If no refresh token is found, redirect to the login page.
             if (!refreshToken) {
                 return res.redirect(`${env.API_BASE_PATH}/login/`);
-                // return res.status(401).json({ error: 'No refresh token provided' });
             }
 
             const result = await tokenService.refresh(refreshToken);
             if (result.error) {
                 return res.redirect('/api/v1/login/');
-                //return res.status(401).json(result);
             }
 
             setTokenCookies(res, result.tokens.accessToken, result.tokens.refreshToken);
 
             next();
-            /* return res.status(200).json({
-                message: 'Tokens refreshed successfully',
-                accessToken: result.tokens.accessToken,
-                studentId: result.studentId
-            }); */
         } catch (error) {
             res.status(error?.status || 500).send({ error: error?.message || error });
         }
