@@ -74,7 +74,7 @@ class AuthController {
 
             const result = await tokenService.refresh(refreshToken);
             if (result.error) {
-                return res.redirect('/api/v1/login/');
+                return res.redirect(`${env.API_BASE_PATH}/login/`);
             }
 
             setTokenCookies(res, result.tokens.accessToken, result.tokens.refreshToken);
