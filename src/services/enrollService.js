@@ -21,10 +21,10 @@ class EnrollService {
         }
 
         // Save student scores
-        await this.#saveStudentScores(studentId, scores);
+        await this._saveStudentScores(studentId, scores);
 
         // Get appropriate specialties based on scores
-        const specialties = await this.#getAppropriateSpecialties(scores);
+        const specialties = await this._getAppropriateSpecialties(scores);
 
         return { specialties };
     }
@@ -51,7 +51,7 @@ class EnrollService {
      * @param {Object} scores - The scores of the student.
      * @private
      */
-    async #saveStudentScores(studentId, scores) {
+    async _saveStudentScores(studentId, scores) {
         const examsRows = await executeQuery(queries.getExams);
         const examsMap = new Map(examsRows.map(exam => [exam.name, exam.id]));
 
@@ -74,17 +74,17 @@ class EnrollService {
      * @returns {Promise<Object>} An object with arrays for free and paid specialties.
      * @private
      */
-    async #getAppropriateSpecialties(scores) {
+    async _getAppropriateSpecialties(scores) {
         const specialties = { free: [], paid: [] };
 
         const specialtiesRows = await executeQuery(queries.getSpecsAndCoefs);
-        const specialtiesMap = this.#buildSpecialtiesMap(specialtiesRows);
+        const specialtiesMap = this._buildSpecialtiesMap(specialtiesRows);
 
         const examsRows = await executeQuery(queries.getExams);
         const examsMap = new Map(examsRows.map(exam => [exam.name, exam.id]));
 
-        this.#classifySpecialties(scores, specialtiesMap, examsMap, specialties);
-        this.#sortSpecialties(specialties);
+        this._classifySpecialties(scores, specialtiesMap, examsMap, specialties);
+        this._sortSpecialties(specialties);
 
         return specialties;
     }
@@ -95,7 +95,7 @@ class EnrollService {
      * @returns {Map} A map of specialties with their coefficients.
      * @private
      */
-    #buildSpecialtiesMap(rows) {
+    _buildSpecialtiesMap(rows) {
         const specialtiesMap = new Map();
 
         rows.forEach(row => {
@@ -125,7 +125,7 @@ class EnrollService {
      * @param {Object} specialties - Object to hold classified specialties.
      * @private
      */
-    #classifySpecialties(scores, specialtiesMap, examsMap, specialties) {
+    _classifySpecialties(scores, specialtiesMap, examsMap, specialties) {
         specialtiesMap.forEach(specialty => {
             let totalScore = 0;
             let calculationDetails = '';
@@ -167,7 +167,7 @@ class EnrollService {
      * @param {Object} specialties - Object containing arrays for free and paid specialties.
      * @private
      */
-    #sortSpecialties(specialties) {
+    _sortSpecialties(specialties) {
         specialties.free.sort((a, b) => b.requiredScore - a.requiredScore);
         specialties.paid.sort((a, b) => a.tuitionCost - b.tuitionCost);
     }

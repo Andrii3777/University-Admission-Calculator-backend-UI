@@ -61,7 +61,7 @@ class TokenService {
     async saveToken(studentId, refreshToken) {
         const existingToken = await executeQuery(queries.getTokenByStudentId, [studentId]);
 
-        if (existingToken.length > 0) {
+        if (existingToken?.length > 0) {
             await executeQuery(queries.updateTokenByStudentId, [refreshToken, studentId]);
         } else {
             await executeQuery(queries.insertToken, [refreshToken, studentId]);
