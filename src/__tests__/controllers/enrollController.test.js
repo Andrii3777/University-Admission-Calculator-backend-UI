@@ -9,7 +9,6 @@ jest.mock('../../services/enrollService');
 describe('EnrollController', () => {
     let req;
     let res;
-    let next;
 
     // Set up mock request, response, and next objects before each test
     beforeEach(() => {
@@ -23,8 +22,6 @@ describe('EnrollController', () => {
             json: jest.fn(),
             send: jest.fn(),
         };
-
-        next = jest.fn();
     });
 
     describe('enroll', () => {

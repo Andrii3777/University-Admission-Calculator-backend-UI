@@ -9,6 +9,7 @@ function validateEmail(email) {
         return 'Email is required';
     }
 
+    // eslint-disable-next-line no-useless-escape
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     if (!emailRegex.test(email)) {

@@ -74,6 +74,7 @@ function generateTable(specialties, type) {
  * Handles the enrollment form submission, sends the scores to the server, and updates the results display.
  * @returns {Promise<void>}
  */
+// eslint-disable-next-line no-unused-vars
 async function enroll() {
   const form = document.getElementById('enrollmentForm');
   const formData = new FormData(form);

@@ -45,8 +45,9 @@ const checkUser = async (req, res, next) => {
         res.locals.email = payloadAccess?.email || payloadRefresh?.email || null;
 
         next();
+    // eslint-disable-next-line no-unused-vars
     } catch (error) {
-        // console.error('Error during user check:', error);
+        //console.error('Error during user check:', error);
         res.locals.email = null;
         next();
     }
