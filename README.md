@@ -216,18 +216,21 @@ POST `api/v1/signup`
   }
   ```
 - **400 Bad Request:**
+
   ```json
   {
     "error": "That email is already in use",
     "path": "email"
   }
   ```
+
   ```json
   {
     "error": "<emailValidation>",
     "path": "email"
   }
   ```
+
   ```json
   {
     "error": "<passwordValidation>",
@@ -263,12 +266,14 @@ POST `api/v1/login`
   }
   ```
 - **401 Unauthorized:**
+
   ```json
   {
     "error": "No such email exists",
     "path": "email"
   }
   ```
+
   ```json
   {
     "error": "Password is incorrect",
@@ -411,14 +416,16 @@ The requireAuth middleware is used to protect the following routes:
 Error Responses:
 
 - **401 Unauthorized (No token)**:
-If the access token is missing, the middleware calls the refresh method.
+  If the access token is missing, the middleware calls the refresh method.
 - **401 Unauthorized (Invalid token)**:
-If the access token is invalid, the middleware calls the refresh method.
+  If the access token is invalid, the middleware calls the refresh method.
 
 ### Refresh method
+
 The refresh method is responsible for generating new access and refresh tokens using the provided refresh token stored in cookies. This method ensures that the user remains authenticated even after the access token has expired.
 
 **How It Works**
+
 - **Check for Refresh Token**: The method first checks if a refresh token is present in the cookies. If not, it redirects the user to the login page.
 - **Validate Refresh Token**: The method validates the refresh token using the tokenService.
 - **Generate New Tokens**: If the refresh token is valid, the method generates new access and refresh tokens.
@@ -431,13 +438,15 @@ The refresh method is responsible for generating new access and refresh tokens u
 The checkUser middleware sets the user's email in the res.locals object for use in rendering views.If the email is not set, a logout button will be displayed.
 
 **How It Works**
+
 - **Check for Tokens**: The method first checks if access and refresh tokens are present in the cookies.
 - **Validate Tokens**: The method validates both tokens using the tokenService.
-Set Email in Response Locals: If the tokens are valid, the email is set in res.locals.email.
+  Set Email in Response Locals: If the tokens are valid, the email is set in res.locals.email.
 - **Continue to the Next Middleware**: The request proceeds to the next middleware.
 - **Handle Errors**: If there is an error, the email is set to null.
 
 ## Server-Side Rendering and Styling
+
 This application uses EJS for server-side rendering of HTML pages and CSS for styling. This allows for dynamic and interactive web pages that are rendered on the server and sent to the client for display.
 
 ## Running the app with DOCKER
