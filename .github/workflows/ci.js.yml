@@ -35,9 +35,9 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      # Step 5: Check Code Format
+      # Step 5: Check Code Format with Prettier
       - name: Check Code Format
-        run: npm run format -- --check
+        run: npm run prettier:check
 
       # Step 6: Run tests
       - name: Run Jest tests

@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 const createAndFillTables = require("./sql/tablesInfill");
 require("./sql/mysqlConnection"); // Ensure database connection is established
 
-const app = express();
+const app = express()
 
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.json());
