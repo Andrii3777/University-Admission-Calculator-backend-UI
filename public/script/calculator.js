@@ -5,24 +5,24 @@
 async function fetchStudentScores() {
   try {
     // Make a GET request to fetch student scores.
-    const response = await fetch('/api/v1/getStudentScores', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+    const response = await fetch("/api/v1/getStudentScores", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch student scores.');
+      throw new Error("Failed to fetch student scores.");
     }
 
     const { scores } = await response.json();
 
     // Populate the form fields with the retrieved scores.
-    document.getElementById('mathematics').value = scores.Mathematics ?? '';
-    document.getElementById('physics').value = scores.Physics ?? '';
-    document.getElementById('chemistry').value = scores.Chemistry ?? '';
-    document.getElementById('biology').value = scores.Biology ?? '';
+    document.getElementById("mathematics").value = scores.Mathematics ?? "";
+    document.getElementById("physics").value = scores.Physics ?? "";
+    document.getElementById("chemistry").value = scores.Chemistry ?? "";
+    document.getElementById("biology").value = scores.Biology ?? "";
   } catch (error) {
-    console.error('Error fetching student scores:', error.message);
+    console.error("Error fetching student scores:", error.message);
   }
 }
 
@@ -33,10 +33,10 @@ async function fetchStudentScores() {
  * @returns {string} - The generated HTML table as a string.
  */
 function generateTable(specialties, type) {
-  let headers = '';
+  let headers = "";
 
-  if (type === 'paid') {
-    headers = '<th>Tuition Cost</th>';
+  if (type === "paid") {
+    headers = "<th>Tuition Cost</th>";
   }
 
   // Construct the HTML table with specialties.
@@ -51,12 +51,13 @@ function generateTable(specialties, type) {
           </tr>
         </thead>
         <tbody>
-          ${specialties.map(specialty => {
-    let tuitionCost = '';
-    if (type === 'paid') {
-      tuitionCost = `<td>$${specialty.tuitionCost}</td>`;
-    }
-    return `
+          ${specialties
+            .map((specialty) => {
+              let tuitionCost = "";
+              if (type === "paid") {
+                tuitionCost = `<td>$${specialty.tuitionCost}</td>`;
+              }
+              return `
               <tr>
                 <td>${specialty.name}</td>
                 <td>${specialty.requiredScore}</td>
@@ -64,7 +65,8 @@ function generateTable(specialties, type) {
                 ${tuitionCost}
               </tr>
             `;
-  }).join('')}
+            })
+            .join("")}
         </tbody>
       </table>
     `;
@@ -76,7 +78,7 @@ function generateTable(specialties, type) {
  */
 // eslint-disable-next-line no-unused-vars
 async function enroll() {
-  const form = document.getElementById('enrollmentForm');
+  const form = document.getElementById("enrollmentForm");
   const formData = new FormData(form);
   const scores = {};
 
@@ -85,35 +87,36 @@ async function enroll() {
   });
 
   // Send the scores to the server via POST request.
-  const response = await fetch('/api/v1/enroll', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ scores })
+  const response = await fetch("/api/v1/enroll", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ scores }),
   });
 
   const result = await response.json();
-  const scoreError = document.querySelector('.score.error');
-  const resultsDiv = document.getElementById('results');
-  resultsDiv.innerHTML = '';
-  scoreError.textContent = '';
+  const scoreError = document.querySelector(".score.error");
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
+  scoreError.textContent = "";
 
   // Handle the server response based on the result type.
   if (result.error) {
     scoreError.textContent = result.error;
   } else {
-    let tableHTML = '';
-    if (result.type === 'free') {
-      tableHTML = generateTable(result.specialties, 'free');
+    let tableHTML = "";
+    if (result.type === "free") {
+      tableHTML = generateTable(result.specialties, "free");
       resultsDiv.innerHTML = `<h3>Free Enrollment Specialties</h3>${tableHTML}`;
-    } else if (result.type === 'paid') {
-      tableHTML = generateTable(result.specialties, 'paid');
+    } else if (result.type === "paid") {
+      tableHTML = generateTable(result.specialties, "paid");
       resultsDiv.innerHTML = `<h3>Paid Enrollment Specialties</h3>${tableHTML}`;
-    } else if (result.type === 'none') {
-      resultsDiv.innerHTML = '<h3>No specialties available for the provided scores.</h3>';
+    } else if (result.type === "none") {
+      resultsDiv.innerHTML =
+        "<h3>No specialties available for the provided scores.</h3>";
     } else {
-      location.assign('/api/v1/calculator/');
+      location.assign("/api/v1/calculator/");
     }
   }
 }
 
-document.addEventListener('DOMContentLoaded', fetchStudentScores);
+document.addEventListener("DOMContentLoaded", fetchStudentScores);

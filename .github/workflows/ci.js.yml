@@ -1,17 +1,14 @@
-# Node.js CI workflow to install dependencies, run linting, and test code
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
+# Node.js CI workflow to install dependencies, run linting, check formatting, and test code
 name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  test:
-
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,24 +17,28 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    # Step 1: Checkout the repository
-    - uses: actions/checkout@v4
+      # Step 1: Checkout the repository
+      - uses: actions/checkout@v4
 
-    # Step 2: Setup Node.js and cache dependencies
-    - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      # Step 2: Setup Node.js and cache dependencies
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
 
-    # Step 3: Install dependencies
-    - name: Install dependencies
-      run: npm ci
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
 
-    # Step 4: Run linting
-    - name: Run ESLint
-      run: npm run lint
+      # Step 4: Run linting
+      - name: Run ESLint
+        run: npm run lint
 
-    # Step 5: Run tests
-    - name: Run Jest tests
-      run: npm test
+      # Step 5: Check Code Format
+      - name: Check Code Format
+        run: npm run format -- --check
+
+      # Step 6: Run tests
+      - name: Run Jest tests
+        run: npm test
