@@ -16,10 +16,16 @@ app.set("view engine", "ejs");
 
 app.use(env.API_BASE_PATH, routes);
 
-createAndFillTables();
+(async () => {
+  try {
+    await createAndFillTables();
 
-app.listen(env.APP_PORT, () => {
-  console.log(
-    `Server is running: http://localhost:${env.APP_PORT}${env.API_BASE_PATH}`,
-  );
-});
+    app.listen(env.APP_PORT, () => {
+      console.log(
+        `Server is running: http://localhost:${env.APP_PORT}${env.API_BASE_PATH}`,
+      );
+    });
+  } catch (error) {
+    console.error("Failed to start the server:", error);
+  }
+})();
