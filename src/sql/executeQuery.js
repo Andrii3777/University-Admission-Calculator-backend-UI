@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const db = require("./mysqlConnection");
+const { db } = require("./mysqlConnection");
 
 /**
  * Executes SQL commands from a specified file.

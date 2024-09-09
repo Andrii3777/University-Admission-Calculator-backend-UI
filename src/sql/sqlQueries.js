@@ -1,4 +1,7 @@
+const env = require("../config");
+
 const queries = {
+  createDatabase: `CREATE DATABASE IF NOT EXISTS \`${env.MYSQL_DATABASE}\`;`,
   getEmail: "SELECT email FROM student WHERE email = ?",
   getStudentByEmail: "SELECT * FROM student WHERE email = ?",
   getStudentById: "SELECT * FROM student WHERE id = ?",

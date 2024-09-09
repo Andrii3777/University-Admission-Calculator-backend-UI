@@ -4,7 +4,8 @@ const env = require("./config");
 const routes = require("./routes/routes");
 const cookieParser = require("cookie-parser");
 const createAndFillTables = require("./sql/tablesInfill");
-require("./sql/mysqlConnection"); // Ensure database connection is established
+// require("./sql/mysqlConnection"); // Ensure database connection is established
+const { createDatabase, connectToDatabase } = require("./sql/mysqlConnection");
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(env.API_BASE_PATH, routes);
 
 (async () => {
   try {
+    await createDatabase();
+    await connectToDatabase();
     await createAndFillTables();
 
     app.listen(env.APP_PORT, () => {
