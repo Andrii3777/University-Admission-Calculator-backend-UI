@@ -4,7 +4,6 @@ const env = require("./config");
 const routes = require("./routes/routes");
 const cookieParser = require("cookie-parser");
 const createAndFillTables = require("./sql/tablesInfill");
-// require("./sql/mysqlConnection"); // Ensure database connection is established
 const { createDatabase, connectToDatabase } = require("./sql/mysqlConnection");
 
 const app = express();
